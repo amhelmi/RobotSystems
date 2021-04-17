@@ -41,8 +41,6 @@ class Controller:
 
 
 if __name__ == "__main__":
-	picar = PiCarX()
-	sensors = Sensors()
-    interpreter = Interpreter()
-    Controller = Controller()
+	controller = Controller()
+	controller.test()
     
