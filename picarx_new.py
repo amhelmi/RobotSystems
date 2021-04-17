@@ -21,7 +21,7 @@ class PiCarX:
         self.PERIOD = 4095
         self.PRESCALER = 10
         self.TIMEOUT = 0.02
-        self.zero_angle = self.zero_angle
+        self.zero_angle = 28
 
         self.dir_servo_pin = Servo(PWM('P2'))
         self.camera_servo_pin1 = Servo(PWM('P0'))
