@@ -45,8 +45,8 @@ class PiCarX:
         self.cali_speed_value = [0, 0]
 
         for pin in self.motor_speed_pins:
-            pin.period(PERIOD)
-            pin.prescaler(PRESCALER)
+            pin.period(self.PERIOD)
+            pin.prescaler(self.PRESCALER)
 
         atexit.register(self.cleanup)
 
