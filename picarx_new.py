@@ -2,15 +2,19 @@
 import time
 import logging
 import atexit
+
 from logdecorator import log_on_start, log_on_end, log_on_error
+
+# this is necessary to fix the car when it powers down and restarts
 try:
     from ezblock import *
     from ezblock import __reset_mcu__
     __reset_mcu__()
     time.sleep(0.01)
 except ImportError:
-    print("This  computer  does  not  appear  to be a PiCar -X system(/opt/ezblock  is not  present). Shadowing  hardware  callswith  substitute  functions")
+    print("This  computer  does  not  appear  to be a PiCar -X system(/opt/ezblock  is not  present). Shadowing  hardware  calls with  substitute  functions")
     from sim_ezblock import *
+
 
 class PiCarX:
 	def __init__(self):
