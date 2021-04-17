@@ -53,13 +53,13 @@ class PiCarX:
     def set_motor_speed(self, motor, speed):
         motor -= 1
         if speed >= 0:
-            direction = 1 * self.self.cali_dir_value[motor]
+            direction = 1 * self.cali_dir_value[motor]
         elif speed < 0:
             direction = -1 * self.cali_dir_value[motor]
         speed = abs(speed)
         #if speed != 0:
         #    speed = int(speed /2 ) + 50
-        speed = speed - self.self.cali_speed_value[motor]
+        speed = speed - self.cali_speed_value[motor]
         if direction < 0:
             self.motor_direction_pins[motor].high()
             self.motor_speed_pins[motor].pulse_width_percent(speed)
