@@ -31,7 +31,7 @@ class Controller:
 
     def test(self):
         for i in range(3):
-            sensor_values = self.sensors.read()
+            sensor_values = self.sensors.sensor_read()
             robot_direction = self.interpreter.interpret(sensor_values)
             picar.forward_angle(robot_direction*self.scaling)
 
