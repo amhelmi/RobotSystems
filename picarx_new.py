@@ -44,7 +44,7 @@ class PiCarX:
         self.cali_dir_value = [1, -1]
         self.cali_speed_value = [0, 0]
 
-        for pin in self.self.motor_speed_pins:
+        for pin in self.motor_speed_pins:
             pin.period(PERIOD)
             pin.prescaler(PRESCALER)
 
