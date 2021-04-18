@@ -26,13 +26,14 @@ class Camera_Sensor:
         self.video_read()
 
     def video_read(self):
-    	while True:
-	        frame = cv2.imread('192.168.50.32:9000/mjpg')
-	        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-	        cv2.imshow("hsv", hsv)
-     	        lower_blue = np.array([60, 40, 40])
-	        upper_blue = np.array([150, 255, 255])
-	        mask = cv2.inRange(hsv, lower_blue, upper_blue)
-	        edges = cv2.Canny(mask, 200, 400)
-	        cv2.imshow("blue", mask)
-	        cv2.waitKey(0)
+        while True:
+            frame = cv2.imread('192.168.50.32:9000/mjpg')
+            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+            cv2.imshow("hsv", hsv)
+            print("hello")
+            lower_blue = np.array([60, 40, 40])
+            upper_blue = np.array([150, 255, 255])
+            mask = cv2.inRange(hsv, lower_blue, upper_blue)
+            edges = cv2.Canny(mask, 200, 400)
+            cv2.imshow("blue", mask)
+            cv2.waitKey(0)
