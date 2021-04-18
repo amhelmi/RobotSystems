@@ -316,4 +316,10 @@ class PiCarX:
 
 if __name__ == "__main__":
     picar = PiCarX()
+    # positive angle for pin2 moves camera down weirdly
+    # appears like 50 and above points at ground
+    #picar.camera_servo_pin2.angle(90)
+    # for pin 1, positive angle is to the left
+    #picar.camera_servo_pin1.angle(0)
+    #time.sleep(2)
     picar.user_control()
