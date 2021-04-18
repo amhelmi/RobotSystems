@@ -20,9 +20,9 @@ logging_format = "%asctime)s: %(message)s"
 logging.basicConfig(format=logging_format, level=logging.INFO, datefmt="%H:%M:%S")
 
 class Controller:
-    def __init__(self, scaling=41):
+    def __init__(self, scaling=20):
         self.sensors = Sensors()
-        self.interpreter = Interpreter()
+        self.interpreter = Interpreter(polarity='lighter')
         self.picar = PiCarX()
         self.scaling = scaling
 
@@ -30,13 +30,12 @@ class Controller:
         pass
 
     def test(self):
-        for i in range(3):
+        self.picar.set_dir_servo_angle(69)
+        for i in range(10):
             sensor_values = self.sensors.sensor_read()
+            print(sensor_values)
             robot_direction = self.interpreter.interpret(sensor_values)
-            picar.forward_angle(robot_direction*self.scaling)
-
-
-        
+            self.picar.forward_angle(-robot_direction*self.scaling, 30)
 
 
 

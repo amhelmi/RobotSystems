@@ -171,6 +171,7 @@ class PiCarX:
         self.camera_servo_pin1.angle(0)
         self.camera_servo_pin2.angle(0)
         self.set_dir_servo_angle(self.zero_angle)
+        print("DONE")
 
     def parallel_parking_right(self):
         '''
@@ -250,10 +251,10 @@ class PiCarX:
         speed: speed to drive at. Default is 100
         '''
         self.set_dir_servo_angle(angle+self.zero_angle)
-        time.sleep(0.1)
+        time.sleep(0.001)
         self.forward(speed)
-        time.sleep(1)
-        self.stop()
+        time.sleep(0.005)
+        # self.stop()
 
     def backward_angle(self, angle=0, speed=100):
         '''
@@ -264,8 +265,8 @@ class PiCarX:
         self.set_dir_servo_angle(angle+self.zero_angle)
         time.sleep(0.1)
         self.backward(speed)
-        time.sleep(1)
-        self.stop()
+        time.sleep(0.2)
+        # self.stop()
 
     def kturn(self, direction="RIGHT"):
         '''
