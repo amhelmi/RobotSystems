@@ -37,3 +37,6 @@ class Camera_Sensor:
             edges = cv2.Canny(mask, 200, 400)
             cv2.imshow("blue", mask)
             cv2.waitKey(0)
+
+if __name__ == "__main__":
+    camera_sensor = Camera_Sensor()
