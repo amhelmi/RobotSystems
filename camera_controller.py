@@ -21,8 +21,8 @@ except ImportError:
     from sim_ezblock import *
 
 class CameraController:
-	def __init__(self):
-		picarx = PiCarX()
-		picarx.set_camera_servo1_angle(0)
-		picarx.set_camera_servo2_angle(0)
-		camera_sensor = CameraSensor()
+    def __init__(self):
+        picarx = PiCarX()
+        picarx.set_camera_servo1_angle(0)
+        picarx.set_camera_servo2_angle(0)
+        camera_sensor = CameraSensor()
