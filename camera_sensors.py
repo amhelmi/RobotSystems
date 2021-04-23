@@ -25,22 +25,18 @@ from vilib import Vilib
 class CameraSensor:
     def __init__(self):
         Vilib.camera_start(True)
-        self.cap = cv2.VideoCapture(0)
-        self.video_read()
+        # self.cap = cv2.VideoCapture(0)
+        # self.video_read()
         
     def video_read(self):
         while True:
             ret, frame = self.cap.read()
             #frame = cv2.imread('192.168.50.32:9000/mjpg')
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-            # cv2.imshow("hsv", hsv)
-            #print(frame)
-            #print("hello")
             lower_blue = np.array([60, 40, 40])
             upper_blue = np.array([150, 255, 255])
             mask = cv2.inRange(hsv, lower_blue, upper_blue)
             edges = cv2.Canny(mask, 200, 400)
-            # cv2.imshow("blue", mask)
             cropped_edges = self.region_of_interest(edges)
             line_segments = self.detect_line_segments(cropped_edges)
             lane_lines = self.average_slope_intercept(frame, line_segments)
@@ -53,7 +49,7 @@ class CameraSensor:
         self.cap.release()
         cv2.destroyAllWindowS()
 
-    def region_of_interest(edges):
+    def region_of_interest(self, edges):
         # pulled from online to cut frame into bottom half of view
         height, width = edges.shape
         mask = np.zeros_like(edges)
@@ -70,18 +66,17 @@ class CameraSensor:
         cropped_edges = cv2.bitwise_and(edges, mask)
         return cropped_edges
 
-    def detect_line_segments(cropped_edges):
+    def detect_line_segments(self, cropped_edges):
         # pulled from online to detect line segments
         # tuning min_threshold, minLineLength, maxLineGap is a trial and error process by hand
         rho = 1  # distance precision in pixel, i.e. 1 pixel
         angle = np.pi / 180  # angular precision in radian, i.e. 1 degree
         min_threshold = 10  # minimal of votes
-        line_segments = cv2.HoughLinesP(cropped_edges, rho, angle, min_threshold, 
-                                        np.array([]), minLineLength=8, maxLineGap=4)
+        line_segments = cv2.HoughLinesP(cropped_edges, rho, angle, min_threshold, np.array([]), minLineLength=8, maxLineGap=4)
 
         return line_segments
 
-    def average_slope_intercept(frame, line_segments):
+    def average_slope_intercept(self, frame, line_segments):
         """
         This function combines line segments into one or two lane lines
         If all line slopes are < 0: then we only have detected left lane
@@ -126,7 +121,7 @@ class CameraSensor:
         return lane_lines
 
 
-    def make_points(frame, line):
+    def make_points(self, frame, line):
         height, width, _ = frame.shape
         slope, intercept = line
         y1 = height  # bottom of the frame
@@ -137,7 +132,7 @@ class CameraSensor:
         x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
         return [[x1, y1, x2, y2]]
 
-    def display_lines(frame, lines, line_color=(0, 255, 0), line_width=2):
+    def display_lines(self, frame, lines, line_color=(0, 255, 0), line_width=2):
         line_image = np.zeros_like(frame)
         if lines is not None:
             for line in lines:
@@ -147,4 +142,4 @@ class CameraSensor:
         return line_image
 
 if __name__ == "__main__":
-    camera_sensor = Camera_Sensor()
+    camera_sensor = CameraSensor()
