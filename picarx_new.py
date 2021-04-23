@@ -31,10 +31,6 @@ class PiCarX:
         self.left_rear_dir_pin = Pin("D4")
         self.right_rear_dir_pin = Pin("D5")
 
-        self.S0 = ADC('A0')
-        self.S1 = ADC('A1')
-        self.S2 = ADC('A2')
-
         self.Servo_dir_flag = 1
         self.dir_cal_value = 0
         self.cam_cal_value_1 = 0
@@ -108,12 +104,6 @@ class PiCarX:
     def set_camera_servo2_angle(self, value):
         self.camera_servo_pin2.angle(-1 * (value+self.cam_cal_value_2))
 
-    def get_adc_value(self):
-        adc_value_list = []
-        adc_value_list.append(S0.read())
-        adc_value_list.append(S1.read())
-        adc_value_list.append(S2.read())
-        return adc_value_list
 
     def set_power(self, speed):
         # set motor speeds
