@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 import sys
 sys.path.append(r'/opt/ezblock')
-import time
-import logging
-import atexit
 import numpy as np
+from vilib import Vilib
 
-
-from logdecorator import log_on_start, log_on_end, log_on_error
-
+Vilib.camera_start(True)
 # this is necessary to fix the car when it powers down and restarts
 try:
     from ezblock import *
@@ -20,13 +16,12 @@ except ImportError:
     from sim_ezblock import *
 
 import cv2
-from vilib import Vilib
 
 class CameraSensor:
     def __init__(self):
         Vilib.camera_start(True)
-        # self.cap = cv2.VideoCapture(0)
-        # self.video_read()
+        self.cap = cv2.VideoCapture(0)
+        self.video_read()
         
     def video_read(self):
         while True:
