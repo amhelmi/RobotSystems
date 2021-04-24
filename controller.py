@@ -21,15 +21,21 @@ logging.basicConfig(format=logging_format, level=logging.INFO, datefmt="%H:%M:%S
 
 class Controller:
     def __init__(self, scaling=20):
+        # initialize everything
         self.sensors = Sensors()
         self.interpreter = Interpreter(polarity='lighter')
         self.picar = PiCarX()
         self.scaling = scaling
 
     def line_follow(self):
+        '''
+        for line following more appropriately
+        currently unused
+        '''
         pass
 
     def test(self):
+        # testing line following
         self.picar.set_dir_servo_angle(69)
         for i in range(10):
             sensor_values = self.sensors.sensor_read()

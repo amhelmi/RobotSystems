@@ -18,6 +18,7 @@ logging.basicConfig(format=logging_format, level=logging.INFO, datefmt="%H:%M:%S
 
 class Interpreter:
     def __init__(self, sensitivity=200, polarity='darker'):
+        # init
         self.sensitivity = sensitivity
         self.polarity = polarity
         self.old_values = [0, 0, 0]
@@ -123,8 +124,6 @@ class Interpreter:
                 robot_direction = 1
 
         self.old_values = sensor_values
-        print(directions)
-        print("robot direction", str(robot_direction))
         return robot_direction
 
 

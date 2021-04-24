@@ -18,6 +18,7 @@ logging.basicConfig(format=logging_format, level=logging.INFO, datefmt="%H:%M:%S
 
 class Sensors:
     def __init__(self):
+        # initialize sensor pins
         self.S0 = ADC('A0')
         self.S1 = ADC('A1')
         self.S2 = ADC('A2')

@@ -22,6 +22,7 @@ except ImportError:
 
 class CameraController:
     def __init__(self):
+        # testing using cmaera in another thread
         picarx = PiCarX()
         picarx.set_camera_servo1_angle(0)
         picarx.set_camera_servo2_angle(0)

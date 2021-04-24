@@ -19,11 +19,15 @@ import cv2
 
 class CameraSensor:
     def __init__(self):
+        # start camera and opencv
         Vilib.camera_start(True)
         self.cap = cv2.VideoCapture(0)
         self.video_read()
         
     def video_read(self):
+        '''
+        read video frames and process for lines so that motor control can use it
+        '''
         while True:
             ret, frame = self.cap.read()
             #frame = cv2.imread('192.168.50.32:9000/mjpg')
@@ -38,6 +42,7 @@ class CameraSensor:
             lane_lines_image = self.display_lines(mask, lane_lines)
             cv2.imshow("lane lines", lane_lines_image)
             
+            # quit if q is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
@@ -46,6 +51,11 @@ class CameraSensor:
 
     def region_of_interest(self, edges):
         # pulled from online to cut frame into bottom half of view
+        '''
+        define a region and cut the frame so that only the edges you care about are visible
+        this cuts it in half
+        :return: edges cropped
+        '''
         height, width = edges.shape
         mask = np.zeros_like(edges)
 
@@ -63,7 +73,9 @@ class CameraSensor:
 
     def detect_line_segments(self, cropped_edges):
         # pulled from online to detect line segments
-        # tuning min_threshold, minLineLength, maxLineGap is a trial and error process by hand
+        '''
+        finds lines using hough transformation
+        '''
         rho = 1  # distance precision in pixel, i.e. 1 pixel
         angle = np.pi / 180  # angular precision in radian, i.e. 1 degree
         min_threshold = 10  # minimal of votes
@@ -77,6 +89,7 @@ class CameraSensor:
         If all line slopes are < 0: then we only have detected left lane
         If all line slopes are > 0: then we only have detected right lane
         """
+        # pulled from online and tweaked to fit our application
         lane_lines = []
         if line_segments is None:
             return lane_lines
@@ -117,6 +130,9 @@ class CameraSensor:
 
 
     def make_points(self, frame, line):
+        '''
+        helper function for average slope intercept
+        '''
         height, width, _ = frame.shape
         slope, intercept = line
         y1 = height  # bottom of the frame
@@ -128,6 +144,9 @@ class CameraSensor:
         return [[x1, y1, x2, y2]]
 
     def display_lines(self, frame, lines, line_color=(0, 255, 0), line_width=2):
+        '''
+        used to display lines on image for viewing purposes
+        '''
         line_image = np.zeros_like(frame)
         if lines is not None:
             for line in lines:
