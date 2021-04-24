@@ -4,7 +4,7 @@ sys.path.append(r'/opt/ezblock')
 import numpy as np
 from vilib import Vilib
 
-Vilib.camera_start(True)
+# Vilib.camera_start(True)
 # this is necessary to fix the car when it powers down and restarts
 try:
     from ezblock import *
@@ -39,7 +39,7 @@ class CameraSensor:
             cropped_edges = self.region_of_interest(edges)
             line_segments = self.detect_line_segments(cropped_edges)
             lane_lines = self.average_slope_intercept(frame, line_segments)
-            lane_lines_image = self.display_lines(mask, lane_lines)
+            lane_lines_image = self.display_lines(frame, lane_lines)
             cv2.imshow("lane lines", lane_lines_image)
             
             # quit if q is pressed
