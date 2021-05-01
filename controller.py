@@ -27,12 +27,13 @@ class Controller:
         self.picar = PiCarX()
         self.scaling = scaling
 
-    def line_follow(self):
+    def line_follow(self, robot_direction):
         '''
         for line following more appropriately
         currently unused
         '''
-        pass
+        self.picar.forward_angle(-robot_direction*self.scaling, 30)
+        return robot_direction*self.scaling
 
     def test(self):
         # testing line following
@@ -41,7 +42,7 @@ class Controller:
             sensor_values = self.sensors.sensor_read()
             print(sensor_values)
             robot_direction = self.interpreter.interpret(sensor_values)
-            self.picar.forward_angle(-robot_direction*self.scaling, 30)
+            self.line_follow(robot_direction)
 
 
 
